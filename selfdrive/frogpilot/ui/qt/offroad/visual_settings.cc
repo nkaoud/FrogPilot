@@ -184,7 +184,7 @@ FrogPilotVisualsPanel::FrogPilotVisualsPanel(FrogPilotSettingsWindow *parent) : 
       visualToggle = new FrogPilotButtonToggleControl(param, title, desc, mapToggles, mapToggleNames);
     } else if (param == "MapStyle") {
       QMap<int, QString> styleMap {
-        {0, tr("Stock openpilot")},
+        {0, tr("Stock")},
         {1, tr("Mapbox Streets")},
         {2, tr("Mapbox Outdoors")},
         {3, tr("Mapbox Light")},

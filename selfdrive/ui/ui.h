@@ -135,6 +135,8 @@ typedef struct UIScene {
   QPolygonF track_adjacent_vertices[6];
   QPolygonF track_edge_vertices;
 
+  QString model_name;
+
   bool acceleration_path;
   bool adjacent_path;
   bool adjacent_path_metrics;

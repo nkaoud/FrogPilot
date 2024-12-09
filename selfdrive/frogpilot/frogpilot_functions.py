@@ -14,7 +14,7 @@ from openpilot.system.hardware import HARDWARE
 
 from openpilot.selfdrive.frogpilot.assets.theme_manager import HOLIDAY_THEME_PATH, update_theme_asset, update_wheel_image
 from openpilot.selfdrive.frogpilot.frogpilot_utilities import copy_if_exists, run_cmd
-from openpilot.selfdrive.frogpilot.frogpilot_variables import MODELS_PATH, THEME_SAVE_PATH, FrogPilotVariables, params
+from openpilot.selfdrive.frogpilot.frogpilot_variables import MODELS_PATH, THEME_SAVE_PATH, params
 
 
 def backup_directory(backup, destination, success_message, fail_message, minimum_backup_size=0, compressed=False):
@@ -185,8 +185,6 @@ def frogpilot_boot_functions(build_metadata, params_storage):
 
 
 def setup_frogpilot(build_metadata):
-  FrogPilotVariables().update(started=False)
-
   run_cmd(["sudo", "mount", "-o", "remount,rw", "/persist"], "Successfully remounted /persist as read-write.", "Failed to remount /persist.")
 
   os.makedirs("/persist/params", exist_ok=True)

@@ -361,12 +361,6 @@ void ui_update_params(UIState *s) {
 }
 
 void ui_update_frogpilot_params(UIState *s) {
-  static bool boot_run = true;
-  if (boot_run) {
-    util::sleep_for(5000);
-    boot_run = false;
-  }
-
   loadThemeColors("", true);
 
   UIScene &scene = s->scene;
@@ -411,10 +405,11 @@ void ui_update_frogpilot_params(UIState *s) {
   scene.lead_metrics = scene.frogpilot_toggles.value("lead_metrics").toBool();
   scene.map_style = scene.frogpilot_toggles.value("map_style").toDouble();
   scene.memory_metrics = scene.frogpilot_toggles.value("memory_metrics").toBool();
-  scene.mtsc_enabled = scene.frogpilot_toggles.value("map_turn_speed_controller").toBool();
   scene.minimum_lane_change_speed = scene.frogpilot_toggles.value("minimum_lane_change_speed").toDouble();
+  scene.model_name = scene.frogpilot_toggles.value("model_name").toString();
   scene.model_randomizer = scene.frogpilot_toggles.value("model_randomizer").toBool();
   scene.model_ui = scene.frogpilot_toggles.value("model_ui").toBool();
+  scene.mtsc_enabled = scene.frogpilot_toggles.value("map_turn_speed_controller").toBool();
   scene.no_logging = scene.frogpilot_toggles.value("no_logging").toBool();
   scene.no_uploads = scene.frogpilot_toggles.value("no_uploads").toBool();
   scene.numerical_temp = scene.frogpilot_toggles.value("numerical_temp").toBool();

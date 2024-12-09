@@ -2,7 +2,7 @@ from cereal import car, custom
 from panda import Panda
 from panda.python import uds
 from openpilot.selfdrive.car.toyota.values import Ecu, CAR, DBC, ToyotaFlags, CarControllerParams, TSS2_CAR, RADAR_ACC_CAR, NO_DSU_CAR, \
-                                        MIN_ACC_SPEED, EPS_SCALE, UNSUPPORTED_DSU_CAR, NO_STOP_TIMER_CAR, ANGLE_CONTROL_CAR, STOP_AND_GO_CAR
+                                        MIN_ACC_SPEED, PEDAL_TRANSITION, EPS_SCALE, UNSUPPORTED_DSU_CAR, NO_STOP_TIMER_CAR, ANGLE_CONTROL_CAR, STOP_AND_GO_CAR
 from openpilot.selfdrive.car import create_button_events, get_safety_config
 from openpilot.selfdrive.car.disable_ecu import disable_ecu
 from openpilot.selfdrive.car.interfaces import CarInterfaceBase
@@ -149,10 +149,10 @@ class CarInterface(CarInterfaceBase):
     # to a negative value, so it won't matter.
     ret.minEnableSpeed = -1. if (candidate in STOP_AND_GO_CAR or ret.enableGasInterceptor) else MIN_ACC_SPEED
 
-    if ret.enableGasInterceptor:
+    if ret.enableGasInterceptor and candidate not in STOP_AND_GO_CAR:
       tune = ret.longitudinalTuning
-      tune.kiBP = [0., 5., 20.]
-      tune.kiV = [1.3, 1.0, 0.7]
+      tune.kiBP = [0., 5., MIN_ACC_SPEED, MIN_ACC_SPEED + PEDAL_TRANSITION]
+      tune.kiV = [1.3, 1.0, 0.7, 0.4]
       ret.vEgoStopping = 0.25
       ret.vEgoStarting = 0.25
       ret.stoppingDecelRate = 0.3  # reach stopping target smoothly

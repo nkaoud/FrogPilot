@@ -89,4 +89,4 @@ class FrogPilotFollowing:
       braking_offset = clip((v_ego - v_lead) * far_lead_offset - COMFORT_BRAKE, 1, distance_factor)
       if frogpilot_toggles.human_following:
         self.t_follow /= braking_offset
-      self.slower_lead = braking_offset - far_lead_offset > 1
+      self.slower_lead = braking_offset / far_lead_offset > 1

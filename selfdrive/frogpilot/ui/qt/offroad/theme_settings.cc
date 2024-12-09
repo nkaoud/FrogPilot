@@ -887,8 +887,6 @@ void FrogPilotThemesPanel::updateState(const UIState &s) {
     return;
   }
 
-  uiState()->scene.keep_screen_on = personalizeOpenpilotOpen && themeDownloading;
-
   if (personalizeOpenpilotOpen) {
     if (themeDownloading) {
       QString progress = QString::fromStdString(params_memory.get("ThemeDownloadProgress"));

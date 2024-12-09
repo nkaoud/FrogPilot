@@ -323,8 +323,6 @@ void FrogPilotModelPanel::showEvent(QShowEvent *event) {
 void FrogPilotModelPanel::updateState(const UIState &s) {
   if (!isVisible()) return;
 
-  uiState()->scene.keep_screen_on = modelDownloading;
-
   downloadAllModelsBtn->setText(modelDownloading && allModelsDownloading ? tr("CANCEL") : tr("DOWNLOAD"));
   downloadModelBtn->setText(modelDownloading && !allModelsDownloading ? tr("CANCEL") : tr("DOWNLOAD"));
 

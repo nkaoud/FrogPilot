@@ -39,7 +39,7 @@ DEFAULT_MODEL = "playstation"
 DEFAULT_MODEL_NAME = "PlayStation®"
 
 DEFAULT_CLASSIC_MODEL = "north-dakota"
-DEFAULT_CLASSIC_MODEL_NAME = "North Dakota (Default)"
+DEFAULT_CLASSIC_MODEL_NAME = "North Dakota (Default) 👀📡"
 
 def get_frogpilot_toggles():
   return SimpleNamespace(**json.loads(params_memory.get("FrogPilotToggles", block=True)))
@@ -118,7 +118,6 @@ frogpilot_default_params: list[tuple[str, str | bytes, int]] = [
   ("CustomSounds", "frog", 0),
   ("CustomUI", "1", 0),
   ("DecelerationProfile", "1", 2),
-  ("DefaultModelName", DEFAULT_CLASSIC_MODEL_NAME, 2),
   ("DeveloperUI", "0", 2),
   ("DeviceManagement", "1", 1),
   ("DeviceShutdown", "9", 1),
@@ -279,9 +278,9 @@ frogpilot_default_params: list[tuple[str, str | bytes, int]] = [
   ("Sidebar", "0", 0),
   ("SidebarMetrics", "1", 3),
   ("SignalMetrics", "0", 2),
-  ("SLCConfirmation", "0", 1),
-  ("SLCConfirmationHigher", "0", 1),
-  ("SLCConfirmationLower", "0", 1),
+  ("SLCConfirmation", "0", 0),
+  ("SLCConfirmationHigher", "0", 0),
+  ("SLCConfirmationLower", "0", 0),
   ("SLCFallback", "2", 2),
   ("SLCLookaheadHigher", "5", 2),
   ("SLCLookaheadLower", "5", 2),
@@ -606,12 +605,12 @@ class FrogPilotVariables:
       else:
         toggle.model = params.get("Model", encoding='utf-8') if tuning_level >= level["Model"] else default.get("Model", encoding='utf-8')
     else:
-      toggle.model = default.Model
+      toggle.model = default.get("Model", encoding='utf-8')
     if toggle.model in available_models.split(',') and os.path.exists(os.path.join(MODELS_PATH, f"{toggle.model}.thneed")):
-      current_model_name = available_model_names.split(',')[available_models.split(',').index(toggle.model)]
-      params_memory.put("CurrentModelName", current_model_name)
+      toggle.model_name = available_model_names.split(',')[available_models.split(',').index(toggle.model)]
     else:
-      toggle.model = default.Model
+      toggle.model = default.get("Model", encoding='utf-8')
+      toggle.model_name = default.get("ModelName", encoding='utf-8')
     classic_models = params.get("ClassicModels", encoding='utf-8') or ""
     toggle.classic_model = classic_models and toggle.model in classic_models.split(',')
     navigation_models = params.get("NavigationModels", encoding='utf-8') or ""

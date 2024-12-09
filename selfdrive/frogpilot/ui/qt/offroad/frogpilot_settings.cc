@@ -177,8 +177,6 @@ void FrogPilotSettingsWindow::closePanel() {
   if (currentWidget != frogpilotSettingsWidget) {
     mainLayout->removeWidget(currentWidget);
   }
-
-  uiState()->scene.keep_screen_on = false;
 }
 
 void FrogPilotSettingsWindow::updateCarVariables() {
