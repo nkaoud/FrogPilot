@@ -23,7 +23,7 @@ STOCKOP_THEME_PATH = os.path.join(BASEDIR, "selfdrive", "frogpilot", "assets", "
 def update_theme_asset(asset_type, theme, holiday_theme):
   save_location = os.path.join(ACTIVE_THEME_PATH, asset_type)
 
-  if holiday_theme is not None:
+  if holiday_theme is not "Stock":
     asset_location = os.path.join(HOLIDAY_THEME_PATH, holiday_theme, asset_type)
   elif asset_type == "distance_icons":
     asset_location = os.path.join(THEME_SAVE_PATH, "distance_icons", theme)
@@ -63,10 +63,10 @@ def update_theme_asset(asset_type, theme, holiday_theme):
   os.symlink(asset_location, save_location, target_is_directory=True)
   print(f"Linked {save_location} to {asset_location}")
 
-def update_wheel_image(image, holiday_theme=None, random_event=True):
+def update_wheel_image(image, holiday_theme="Stock", random_event=True):
   wheel_save_location = os.path.join(ACTIVE_THEME_PATH, "steering_wheel")
 
-  if holiday_theme is not None:
+  if holiday_theme is not "Stock":
     wheel_location = os.path.join(HOLIDAY_THEME_PATH, holiday_theme, "steering_wheel")
   elif random_event:
     wheel_location = os.path.join(RANDOM_EVENTS_PATH, "icons")
@@ -152,7 +152,7 @@ class ThemeManager:
     if "holiday_theme" in self.previous_assets:
       params_memory.remove("CurrentHolidayTheme")
 
-    self.previous_assets["holiday_theme"] = None
+    self.previous_assets["holiday_theme"] = "Stock"
 
   def update_active_theme(self, time_validated, frogpilot_toggles):
     if time_validated:
